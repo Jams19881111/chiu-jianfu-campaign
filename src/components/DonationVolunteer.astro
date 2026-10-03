@@ -65,7 +65,10 @@ import { site } from "../data/site";
         class="mt-8 space-y-5"
         data-mailto={site.contact.email}
         data-subject={site.volunteer.mailSubject}
+        data-key={site.volunteer.web3formsKey}
       >
+        <!-- 防垃圾訊息用的隱藏欄位，真人不會看到也不會勾 -->
+        <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
         <div>
           <label for="volunteer-name" class="mb-1.5 block text-sm font-medium text-ink-700">姓名</label>
           <input
@@ -129,15 +132,16 @@ import { site } from "../data/site";
 
         <button
           type="submit"
-          class="w-full rounded-full bg-primary-500 py-3.5 text-base font-bold text-ink-900 transition-colors hover:bg-primary-400"
+          id="volunteer-submit"
+          class="w-full rounded-full bg-primary-500 py-3.5 text-base font-bold text-ink-900 transition-colors hover:bg-primary-400 disabled:cursor-wait disabled:opacity-60"
         >
           送出報名
         </button>
 
+        <p id="volunteer-status" class="hidden rounded-xl px-4 py-3 text-sm font-medium leading-relaxed" role="status"></p>
+
         <p class="text-xs leading-relaxed text-ink-400">
-          {site.volunteer.note}若無法開啟郵件程式，也可直接來信
-          <a href={`mailto:${site.contact.email}`} class="font-bold text-ink-600 underline">{site.contact.email}</a>
-          或來電
+          {site.volunteer.note}如有問題，也可來電
           <a href={`tel:${site.contact.phone}`} class="font-bold text-ink-600 underline">{site.contact.phone}</a>。
         </p>
       </form>
@@ -159,23 +163,65 @@ import { site } from "../data/site";
     setTimeout(() => (copyButton.textContent = label), 2000);
   });
 
-  // 志工報名表單：網站沒有後端，送出時開啟民眾的郵件程式，自動帶入報名內容
+  // 志工報名表單：網站沒有後端，透過 Web3Forms 把報名內容寄到競選團隊信箱
   const volunteerForm = document.getElementById("volunteer-form") as HTMLFormElement | null;
-  volunteerForm?.addEventListener("submit", (event) => {
+  const submitButton = document.getElementById("volunteer-submit") as HTMLButtonElement | null;
+  const statusBox = document.getElementById("volunteer-status");
+
+  const showStatus = (ok: boolean, html: string) => {
+    if (!statusBox) return;
+    statusBox.innerHTML = html;
+    statusBox.className = `rounded-xl px-4 py-3 text-sm font-medium leading-relaxed ${
+      ok ? "bg-primary-100 text-ink-900" : "bg-accent-100 text-accent-700"
+    }`;
+  };
+
+  volunteerForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const data = new FormData(volunteerForm);
+    if (data.get("botcheck")) return;
+
     const name = String(data.get("name") ?? "").trim();
-    const areas = data.getAll("areas").join("、") || "（未選）";
-    const body = [
-      `姓名：${name}`,
-      `聯絡電話：${data.get("phone") ?? ""}`,
-      `Email：${data.get("email") || "（未填）"}`,
-      `有興趣的參與方式：${areas}`,
-      `想對我們說的話：${data.get("message") || "（未填）"}`,
-    ].join("\n");
-    const subject = `${volunteerForm.dataset.subject}－${name}`;
-    window.location.href =
-      `mailto:${volunteerForm.dataset.mailto}` +
-      `?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const payload = {
+      access_key: volunteerForm.dataset.key,
+      subject: `${volunteerForm.dataset.subject}－${name}`,
+      from_name: "邱建富官網志工報名",
+      姓名: name,
+      聯絡電話: data.get("phone"),
+      Email: data.get("email") || "（未填）",
+      有興趣的參與方式: data.getAll("areas").join("、") || "（未選）",
+      想對我們說的話: data.get("message") || "（未填）",
+    };
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = "送出中…";
+    }
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json();
+      if (!result.success) throw new Error(result.message);
+      volunteerForm.reset();
+      showStatus(true, "✓ 報名已送出，謝謝您的支持！我們會盡快與您聯繫。");
+    } catch {
+      // 送出失敗時，改用郵件程式寄送，確保報名不會遺失
+      const body = Object.entries(payload)
+        .filter(([key]) => !["access_key", "subject", "from_name"].includes(key))
+        .map(([key, value]) => `${key}：${value}`)
+        .join("\n");
+      const mailto =
+        `mailto:${volunteerForm.dataset.mailto}` +
+        `?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(body)}`;
+      showStatus(false, `送出失敗，請<a href="${mailto}" class="font-bold underline">改用 Email 寄送報名</a>，或直接來電。`);
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = "送出報名";
+      }
+    }
   });
 </script>
