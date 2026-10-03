@@ -71,14 +71,16 @@ export const site = {
   volunteer: {
     heading: "加入志工行列",
     description: "不管是掃街、文宣、活動支援，都需要您的參與。填寫表單，我們會盡快與您聯繫。",
-    note: "【待補】此表單目前僅為外觀展示，尚未串接實際送出後端，請競選團隊決定要串接 Email、Google 表單或其他系統。",
+    // 表單以 mailto 方式送出：開啟民眾的郵件程式，自動帶入報名內容寄到 contact.email
+    note: "按下「送出報名」後，會開啟您的郵件程式並自動填好報名內容，請確認後按下寄出即可完成報名。",
+    mailSubject: "志工報名",
     areas: ["掃街拜票", "文宣製作", "活動支援", "網路社群", "其他"],
   },
 
   contact: {
     officeAddress: "競選總部：彰化市中央路221號",
     phone: "04-7631090",
-    email: "【待補】請填入聯絡信箱",
+    email: "chiuwenhsuan@gmail.com",
   },
 
   social: {
