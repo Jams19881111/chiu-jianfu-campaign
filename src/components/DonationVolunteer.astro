@@ -9,32 +9,50 @@ import { site } from "../data/site";
       <h2 class="text-2xl font-extrabold sm:text-3xl">{site.donation.heading}</h2>
       <p class="mt-4 text-sm leading-relaxed text-ink-200">{site.donation.description}</p>
 
-      <div class="mt-8 grid grid-cols-2 gap-3">
-        {
-          site.donation.amountOptions.map((amount, i) => (
+      <!-- 政治獻金專戶資訊 -->
+      <dl class="mt-8 divide-y divide-ink-700 rounded-2xl border-2 border-primary-500 bg-ink-800/60">
+        <div class="px-5 py-4">
+          <dt class="text-xs font-bold tracking-wider text-primary-400">戶名</dt>
+          <dd class="mt-1 text-base font-bold leading-snug">{site.donation.account.name}</dd>
+        </div>
+        <div class="px-5 py-4">
+          <dt class="text-xs font-bold tracking-wider text-primary-400">銀行</dt>
+          <dd class="mt-1 text-base font-bold">
+            {site.donation.account.bank}（代碼 {site.donation.account.bankCode}）
+          </dd>
+        </div>
+        <div class="px-5 py-4">
+          <dt class="text-xs font-bold tracking-wider text-primary-400">帳號</dt>
+          <dd class="mt-1 flex flex-wrap items-center justify-between gap-3">
+            <span class="font-mono text-2xl font-bold tracking-wide text-primary-400 sm:text-3xl">
+              {site.donation.account.number}
+            </span>
             <button
               type="button"
-              class:list={[
-                "rounded-xl border-2 px-4 py-3 text-lg font-bold transition-colors",
-                i === 0
-                  ? "border-primary-500 bg-primary-500 text-ink-900"
-                  : "border-ink-600 text-white hover:border-primary-400 hover:text-primary-400",
-              ]}
+              id="copy-account"
+              data-copy={site.donation.account.transferNumber}
+              class="rounded-full bg-primary-500 px-4 py-2 text-sm font-bold text-ink-900 transition-colors hover:bg-primary-400"
             >
-              NT$ {amount.toLocaleString()}
+              複製帳號
             </button>
-          ))
-        }
-      </div>
+          </dd>
+          <p class="mt-2 text-xs leading-relaxed text-ink-300">
+            跨行轉帳請輸入銀行代碼 {site.donation.account.bankCode}，帳號 {site.donation.account.transferNumber}（共 14 碼）
+          </p>
+        </div>
+      </dl>
 
-      <button
-        type="button"
-        class="mt-6 w-full rounded-full bg-accent-500 py-3.5 text-base font-bold text-white transition-colors hover:bg-accent-600"
-      >
-        前往捐款
-      </button>
+      <p class="mt-6 rounded-xl bg-accent-500/15 px-4 py-3 text-sm font-medium leading-relaxed text-accent-100">
+        ⚠️ {site.donation.antiFraud}
+      </p>
 
-      <p class="mt-4 text-xs leading-relaxed text-ink-400">{site.donation.note}</p>
+      <ul class="mt-4 list-disc space-y-1.5 pl-5 text-xs leading-relaxed text-ink-300">
+        {site.donation.notes.map((note) => <li>{note}</li>)}
+        <li>
+          競選辦公室電話：
+          <a href={`tel:${site.contact.phone}`} class="font-bold text-primary-400 underline">{site.contact.phone}</a>
+        </li>
+      </ul>
     </div>
 
     <!-- 志工招募表單 -->
@@ -110,3 +128,18 @@ import { site } from "../data/site";
     </div>
   </div>
 </section>
+
+<script>
+  // 「複製帳號」按鈕：複製 14 碼帳號，方便手機轉帳時直接貼上
+  const copyButton = document.getElementById("copy-account");
+  copyButton?.addEventListener("click", async () => {
+    const label = copyButton.textContent;
+    try {
+      await navigator.clipboard.writeText(copyButton.dataset.copy ?? "");
+      copyButton.textContent = "已複製 ✓";
+    } catch {
+      copyButton.textContent = "請手動複製";
+    }
+    setTimeout(() => (copyButton.textContent = label), 2000);
+  });
+</script>
