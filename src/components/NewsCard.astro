@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
 import { withBase } from "../utils/url";
 
 interface Props {
@@ -7,6 +8,8 @@ interface Props {
 }
 
 const { post } = Astro.props;
+const expandedContent = post.data.expanded ? await render(post) : null;
+const Content = expandedContent?.Content;
 const sourceUrl = post.data.externalUrl ? new URL(post.data.externalUrl) : undefined;
 const isFacebook = sourceUrl && ["facebook.com", "www.facebook.com"].includes(sourceUrl.hostname);
 const videoId = isFacebook
@@ -30,7 +33,7 @@ const categoryStyles: Record<string, string> = {
 ---
 
 <article
-  class="flex flex-col rounded-2xl border border-primary-100 bg-surface p-6 transition-shadow hover:shadow-md"
+  class:list={["flex flex-col rounded-2xl border border-primary-100 bg-surface p-6 transition-shadow hover:shadow-md", { "sm:col-span-2 lg:col-span-3": post.data.expanded }]}
 >
   <div class="flex items-center gap-3">
     <span class={`rounded-full px-3 py-1 text-xs font-bold ${categoryStyles[post.data.category] ?? "bg-ink-100 text-ink-700"}`}>
@@ -39,7 +42,11 @@ const categoryStyles: Record<string, string> = {
     <time class="text-xs text-ink-400">{formattedDate}</time>
   </div>
   <h3 class="mt-4 text-lg font-bold text-ink-900"><a href={withBase(`/news/${post.id}`)} class="hover:underline">{post.data.title}</a></h3>
-  <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-600">{post.data.summary}</p>
+  {Content ? (
+    <div class="prose mt-4 max-w-3xl text-base leading-relaxed prose-headings:font-bold prose-a:text-primary-600">
+      <Content />
+    </div>
+  ) : <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-600">{post.data.summary}</p>}
   {videoEmbed && (
     <div class="mt-4">
       <iframe
@@ -55,5 +62,5 @@ const categoryStyles: Record<string, string> = {
       <a href={post.data.externalUrl} target="_blank" rel="noopener noreferrer" class="mt-3 inline-block text-sm font-bold text-primary-600 underline">前往 Facebook 觀看 →</a>
     </div>
   )}
-  <a href={withBase(`/news/${post.id}`)} class="mt-4 text-sm font-bold text-primary-600 hover:underline">閱讀更多 →</a>
+  {!post.data.expanded && <a href={withBase(`/news/${post.id}`)} class="mt-4 text-sm font-bold text-primary-600 hover:underline">閱讀更多 →</a>}
 </article>
