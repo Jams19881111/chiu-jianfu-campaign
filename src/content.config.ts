@@ -33,6 +33,7 @@ const news = defineCollection({
       date: z.coerce.date(),
       category: z.enum(["最新消息", "競選行程", "媒體報導"]),
       summary: z.string(),
+      expanded: z.boolean().default(false), // 在首頁及消息列表直接展開本站整理的內容
       cover: image().optional(),
       externalUrl: z.string().url().optional(), // 媒體報導若是外部連結，填這欄，內頁會直接導去原始報導
       region: z.string().optional(), // 對應 regions collection 的 id，非必填
