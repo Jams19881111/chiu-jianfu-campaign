@@ -6,6 +6,13 @@ interface Props {
 }
 
 const { item } = Astro.props;
+const sourceUrl = new URL(item.data.url);
+const facebookId = ["facebook.com", "www.facebook.com"].includes(sourceUrl.hostname)
+  ? sourceUrl.pathname.match(/\/(?:reel|videos)\/(\d+)\/?$/)?.[1]
+  : undefined;
+const facebookEmbed = facebookId
+  ? `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(item.data.url)}&show_text=false&width=450&height=600`
+  : undefined;
 
 const typeIcon: Record<string, string> = {
   "YouTube影片": "▶️",
@@ -14,7 +21,18 @@ const typeIcon: Record<string, string> = {
 };
 ---
 
-<a
+{facebookEmbed ? (
+  <article class="overflow-hidden rounded-2xl border border-primary-100 bg-surface shadow-sm">
+    <iframe src={facebookEmbed} title={item.data.title} width="450" height="600"
+      style="display:block;width:100%;height:auto;aspect-ratio:3/4;border:0;background:#181818;"
+      loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen />
+    <div class="p-5">
+      <span class="text-xs font-bold text-primary-600">Facebook Reel・{item.data.source}</span>
+      <h3 class="mt-2 text-base font-bold text-ink-900">{item.data.title}</h3>
+      <a href={item.data.url} target="_blank" rel="noopener noreferrer" class="mt-3 inline-block text-sm font-bold text-primary-600 underline">前往 Facebook 觀看 →</a>
+    </div>
+  </article>
+) : (<a
   href={item.data.url}
   target="_blank"
   rel="noopener noreferrer"
@@ -29,4 +47,4 @@ const typeIcon: Record<string, string> = {
       {item.data.title}
     </h3>
   </div>
-</a>
+</a>)}
