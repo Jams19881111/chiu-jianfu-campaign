@@ -26,7 +26,20 @@ const typeIcon: Record<string, string> = {
 };
 ---
 
-{youtubeEmbed ? (
+{sourceUrl.pathname.endsWith('.mp4') ? (
+  <article class="overflow-hidden rounded-2xl border border-primary-100 bg-surface shadow-sm">
+    <video controls playsinline preload="metadata" aria-label={item.data.title}
+      style="display:block;width:100%;aspect-ratio:3/4;background:#181818;object-fit:contain;">
+      <source src={item.data.url} type="video/mp4" />
+      您的瀏覽器不支援影片播放，請使用下方連結觀看。
+    </video>
+    <div class="p-5">
+      <span class="text-xs font-bold text-primary-600">{item.data.source}</span>
+      <h3 class="mt-2 text-base font-bold text-ink-900">{item.data.title}</h3>
+      <a href={item.data.url} target="_blank" rel="noopener noreferrer" class="mt-3 inline-block text-sm font-bold text-primary-600 underline">開啟影片 →</a>
+    </div>
+  </article>
+) : youtubeEmbed ? (
   <article class="overflow-hidden rounded-2xl border border-primary-100 bg-surface shadow-sm">
     <iframe src={youtubeEmbed} title={item.data.title} width="450" height="600"
       style="display:block;width:100%;height:auto;aspect-ratio:3/4;border:0;background:#181818;"
