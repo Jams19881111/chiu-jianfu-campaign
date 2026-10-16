@@ -1,11 +1,10 @@
 ---
 import { getCollection } from "astro:content";
+import { sortMedia } from "../utils/media";
 import { withBase } from "../utils/url";
 import MediaCard from "./MediaCard.astro";
 
-const allItems = (await getCollection("media")).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const allItems = sortMedia(await getCollection("media"));
 const latestItems = allItems.slice(0, 3);
 ---
 
