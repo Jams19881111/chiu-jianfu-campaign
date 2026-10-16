@@ -1,11 +1,10 @@
 ---
 import { getCollection } from "astro:content";
+import { sortMedia } from "../../utils/media";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import MediaCard from "../../components/MediaCard.astro";
 
-const allItems = (await getCollection("media")).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const allItems = sortMedia(await getCollection("media"));
 ---
 
 <BaseLayout title="影音專區" description="邱建富的YouTube影片與Podcast節目">
