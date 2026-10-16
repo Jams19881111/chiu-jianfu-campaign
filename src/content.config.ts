@@ -67,6 +67,7 @@ const media = defineCollection({
   schema: z.object({
     title: z.string(),
     type: z.enum(["YouTube影片", "Podcast", "其他影音"]),
+    after: z.string().optional(), // 緊接在指定影音項目後方
     source: z.string(), // 頻道/節目名稱，例如「邱建富YouTube頻道」「彰化好聲音Podcast」
     url: z.string().url(),
     date: z.coerce.date(),
