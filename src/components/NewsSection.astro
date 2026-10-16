@@ -1,11 +1,10 @@
 ---
 import { getCollection } from "astro:content";
+import { sortNews } from "../utils/news";
 import NewsCard from "./NewsCard.astro";
 import { withBase } from "../utils/url";
 
-const allPosts = (await getCollection("news")).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const allPosts = sortNews(await getCollection("news"));
 const latestPosts = allPosts.slice(0, 3);
 ---
 
