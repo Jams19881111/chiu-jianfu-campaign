@@ -1,11 +1,10 @@
 ---
 import { getCollection } from "astro:content";
+import { sortNews } from "../../utils/news";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import NewsCard from "../../components/NewsCard.astro";
 
-const allPosts = (await getCollection("news")).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const allPosts = sortNews(await getCollection("news"));
 ---
 
 <BaseLayout title="最新消息與相關報導">
