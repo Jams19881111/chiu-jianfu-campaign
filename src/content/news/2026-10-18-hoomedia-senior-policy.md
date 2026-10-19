@@ -7,6 +7,13 @@ summary: "互傳媒報導邱建富的敬老政策主張，涵蓋長者健保費�
 externalUrl: "https://tw.news.yahoo.com/邱建富重陽節提敬老政策-加碼春節敬老紅包6000元-145005510.html"
 ---
 
+<figure>
+  <a href="https://chiuchienfu.tw/images/2026-10-19-senior-policy.jpg" target="_blank" rel="noopener noreferrer" aria-label="開啟敬老政策圖卡原圖">
+    <img src="https://chiuchienfu.tw/images/2026-10-19-senior-policy.jpg" alt="邱建富敬老政策主張圖卡：65歲以上長者免繳健保費、70歲以上長者春節敬老紅包6000元推廣至全縣，以及長青幸福卡使用範圍升級。" width="1024" height="1536" loading="lazy" style="display:block;width:100%;height:auto;border-radius:12px;" />
+  </a>
+  <figcaption>敬老政策主張圖卡（團隊提供）。點擊圖片可放大查看；圖卡內容為政策主張。</figcaption>
+</figure>
+
 ## 報導重點
 
 互傳媒於10月18日報導，邱建富在重陽節前提出長者福利構想，主要包括：
@@ -26,3 +33,5 @@ externalUrl: "https://tw.news.yahoo.com/邱建富重陽節提敬老政策-加碼
 [閱讀 Yahoo 新聞完整報導 →](https://tw.news.yahoo.com/邱建富重陽節提敬老政策-加碼春節敬老紅包6000元-145005510.html)
 
 [閱讀互傳媒原始報導 →](https://hoomedia.com.tw/2026/10/18/174968/)
+
+
