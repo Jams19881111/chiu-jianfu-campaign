@@ -88,7 +88,7 @@ export const site = {
   social: {
     facebook: "https://www.facebook.com/ChenfuChanghua/?locale=zh_TW",
     youtube: "#",
-    instagram: "#",
+    instagram: "https://www.instagram.com/chenfu168/",
     line: "#",
   },
 
@@ -97,3 +97,4 @@ export const site = {
       "本網站由邱建富競選辦公室維護。© 2026 邱建富競選團隊。",
   },
 };
+
