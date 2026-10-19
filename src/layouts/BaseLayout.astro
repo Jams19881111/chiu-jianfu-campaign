@@ -10,7 +10,15 @@ interface Props {
   description?: string;
 }
 
-const { title, description = site.hero.slogan } = Astro.props;
+const { title, description = `邱建富官方網站。2026彰化縣長候選人、前彰化市長，了解經歷、施政成果、核心政見、最新消息與影音。${site.hero.slogan}。` } = Astro.props;
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+const pagePath = basePath && Astro.url.pathname.startsWith(`${basePath}/`)
+  ? Astro.url.pathname.slice(basePath.length) : Astro.url.pathname;
+const canonicalUrl = new URL(pagePath, "https://chiuchienfu.tw");
+const indexable = Astro.site?.hostname === "chiuchienfu.tw" && !pagePath.startsWith("/regions/");
+const pageTitle = title === "首頁"
+  ? `邱建富官網｜${site.candidate.role}・前彰化市長`
+  : `${title} ｜ 邱建富官網`;
 ---
 
 <!doctype html>
@@ -20,12 +28,16 @@ const { title, description = site.hero.slogan } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
     <meta name="description" content={description} />
-    <!--
-      這個網站現在還是「內部審閱用」草稿，不對外公布，所以擋掉搜尋引擎索引。
-      正式決定公開上線、要讓 Google 收錄的時候，把下面這行 noindex 刪掉即可。
-    -->
-    <meta name="robots" content="noindex, nofollow" />
-    <title>{title} ｜ {site.candidate.name} {site.candidate.role}</title>
+    <meta name="robots" content={indexable ? "index, follow" : "noindex, follow"} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="邱建富官網" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content="https://chiuchienfu.tw/images/candidate-hero.jpg" />
+    <title>{pageTitle}</title>
   </head>
   <body class="flex min-h-screen flex-col">
     <Header />
