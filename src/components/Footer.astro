@@ -3,6 +3,8 @@ import { site } from "../data/site";
 
 const socialLinks = [
   { label: "Facebook", href: site.social.facebook },
+  // 頻道網址未確定前，依使用者要求暫連官網首頁。
+  { label: "YouTube", href: site.social.youtube === "#" ? "https://chiuchienfu.tw/" : site.social.youtube },
   { label: "Instagram", href: site.social.instagram },
   { label: "LINE", href: site.social.line },
 ];
@@ -45,4 +47,5 @@ const socialLinks = [
     {site.footer.disclaimer}
   </div>
 </footer>
+
 
