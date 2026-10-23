@@ -19,6 +19,22 @@ const indexable = Astro.site?.hostname === "chiuchienfu.tw" && !pagePath.startsW
 const pageTitle = title === "首頁"
   ? `邱建富官網｜${site.candidate.role}・前彰化市長`
   : `${title} ｜ 邱建富官網`;
+const websiteIdentity = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://chiuchienfu.tw/#website",
+  name: "邱建富官網",
+  alternateName: ["邱建富官方網站", "邱建富"],
+  url: "https://chiuchienfu.tw/",
+  inLanguage: "zh-Hant",
+  about: {
+    "@type": "Person",
+    name: site.candidate.name,
+    url: "https://chiuchienfu.tw/",
+    image: "https://chiuchienfu.tw/images/candidate-hero.jpg",
+    sameAs: [site.social.facebook, site.social.instagram].filter(url => url.startsWith("https://")),
+  },
+};
 ---
 
 <!doctype html>
@@ -37,6 +53,9 @@ const pageTitle = title === "首頁"
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content="https://chiuchienfu.tw/images/candidate-hero.jpg" />
+    {indexable && pagePath === "/" && (
+      <script type="application/ld+json" set:html={JSON.stringify(websiteIdentity).replace(/</g, "\\u003c")} />
+    )}
     <title>{pageTitle}</title>
   </head>
   <body class="flex min-h-screen flex-col">
