@@ -96,7 +96,7 @@ export const site = {
   // 到 GA4「管理 → 資料串流」複製「評估 ID」（G- 開頭）貼進引號裡；
   // 留空就不會載入任何統計程式。只在正式網域 chiuchienfu.tw 的版本啟用。
   analytics: {
-    ga4MeasurementId: "",
+    ga4MeasurementId: "G-3V7M86NVJ4",
   },
 
   footer: {
