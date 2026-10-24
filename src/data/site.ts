@@ -92,6 +92,13 @@ export const site = {
     line: "#",
   },
 
+  // 流量統計（Google Analytics 4）：網頁瀏覽、影片播放、文章點擊次數。
+  // 到 GA4「管理 → 資料串流」複製「評估 ID」（G- 開頭）貼進引號裡；
+  // 留空就不會載入任何統計程式。只在正式網域 chiuchienfu.tw 的版本啟用。
+  analytics: {
+    ga4MeasurementId: "",
+  },
+
   footer: {
     disclaimer:
       "本網站由邱建富競選辦公室維護。© 2026 邱建富競選團隊。",

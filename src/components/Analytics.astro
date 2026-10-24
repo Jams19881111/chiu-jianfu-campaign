@@ -1,0 +1,74 @@
+---
+/*
+  Google Analytics 4 流量統計。評估 ID 設定在 src/data/site.ts 的 analytics。
+  - 網頁瀏覽：GA4 自動記錄（page_view）。
+  - 影片播放：video_play 事件，參數 video_title / video_platform / video_url。
+    官網自己的 mp4 記錄真正的播放；Facebook、YouTube 嵌入影片因為瀏覽器
+    不讓網站讀取外部播放器的狀態，改記錄「第一次點進播放器」。
+    同一頁同一部影片只記一次。
+  - 文章點擊：article_click 事件，參數 article_id / link_text，
+    點任何前往 /news/<文章> 的連結都會記錄。
+  只在正式網域 chiuchienfu.tw 的版本載入，GitHub Pages 與本機開發不會送出資料。
+*/
+import { site } from "../data/site";
+
+const measurementId = site.analytics.ga4MeasurementId.trim();
+const enabled = /^G-[A-Z0-9]+$/.test(measurementId) && Astro.site?.hostname === "chiuchienfu.tw";
+---
+
+{enabled && (
+  <>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
+    <script is:inline define:vars={{ measurementId }}>
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag("js", new Date());
+      window.gtag("config", measurementId);
+
+      const send = (name, params) => window.gtag("event", name, params);
+      const played = new WeakSet();
+      const videoTitle = (el) =>
+        (el.dataset.videoTitle || el.title || el.getAttribute("aria-label") || "")
+          .replace(/（(Facebook|YouTube) 影片）$/, "").trim() || document.title;
+      const videoPlay = (el, platform, url) => {
+        if (played.has(el)) return;
+        played.add(el);
+        send("video_play", { video_title: videoTitle(el), video_platform: platform, video_url: url });
+      };
+
+      document.addEventListener("play", (event) => {
+        if (event.target instanceof HTMLVideoElement) {
+          videoPlay(event.target, "官網", event.target.currentSrc);
+        }
+      }, true);
+
+      // 點進嵌入播放器時焦點會移到 iframe，整個視窗觸發 blur。
+      // 記錄後把焦點拉回頁面，這樣點下一部影片時才偵測得到。
+      window.addEventListener("blur", () => {
+        setTimeout(() => {
+          const frame = document.activeElement;
+          if (!(frame instanceof HTMLIFrameElement)) return;
+          const src = new URL(frame.src, location.href);
+          const platform = src.hostname.includes("youtube") ? "YouTube"
+            : src.hostname.endsWith("facebook.com") ? "Facebook" : null;
+          if (!platform) return;
+          const id = platform === "YouTube" ? src.pathname.split("/embed/")[1] : null;
+          videoPlay(frame, platform, src.searchParams.get("href") || (id ? `https://www.youtube.com/watch?v=${id}` : src.href));
+          setTimeout(() => window.focus(), 300);
+        });
+      });
+
+      document.addEventListener("click", (event) => {
+        const link = event.target instanceof Element ? event.target.closest("a[href]") : null;
+        if (!link) return;
+        const url = new URL(link.href, location.href);
+        const match = url.origin === location.origin && url.pathname.match(/^\/news\/([^/]+)\/?$/);
+        if (!match) return;
+        send("article_click", {
+          article_id: decodeURIComponent(match[1]),
+          link_text: link.textContent.trim().replace(/\s+/g, " ").slice(0, 100),
+        });
+      });
+    </script>
+  </>
+)}
