@@ -2,10 +2,17 @@
 title: "邱建富各地舉辦廟口開講，田中乾德宮場次人潮多｜自由時報"
 date: 2026-10-22T12:33:00+08:00
 category: "媒體報導"
-summary: "自由時報報導邱建富在彰化各地舉辦廟口開講，與鄉親面對面說明政見；10月21日晚間田中乾德宮場次現場座位不足。"
+summary: "自由時報報導邱建富在彰化各地舉辦廟口開講，與鄉親面對面說明政見；10月21日晚間田中乾德宮場次現場座位不足。本篇附現場照片。"
 expanded: true
 externalUrl: "https://news.ltn.com.tw/news/politics/breakingnews/5614796"
 ---
+
+<figure>
+  <a href="https://chiuchienfu.tw/images/2026-10-21-tianzhong-temple-talk.jpg" target="_blank" rel="noopener noreferrer" aria-label="放大查看田中廟口開講現場照片">
+    <img src="https://chiuchienfu.tw/images/2026-10-21-tianzhong-temple-talk.jpg" alt="夜間田中廟口開講現場，廟埕掛滿紅黃燈籠，民眾坐滿座位聆聽，右側講者站著發言。" width="898" height="680" loading="lazy" style="display:block;width:100%;height:auto;border-radius:12px;" />
+  </a>
+  <figcaption>10月21日晚間田中廟口開講現場。照片提供：邱建富競選總部。</figcaption>
+</figure>
 
 ## 報導重點
 
