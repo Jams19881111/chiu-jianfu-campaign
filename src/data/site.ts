@@ -38,6 +38,12 @@ export const site = {
     },
   },
 
+  // 首頁主視覺下方的競選橫幅，圖片放在 public/images/
+  banner: {
+    image: "/images/campaign-banner-3.jpg",
+    alt: "3號 邱建富 彰化縣長候選人：彰化富，彰化縣長唯一支持，彰化縣穿新衫。#九年彰化市長 #有經驗會做事",
+  },
+
   about: {
     heading: "關於邱建富",
     paragraphs: [

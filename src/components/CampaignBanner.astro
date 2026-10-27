@@ -1,0 +1,22 @@
+---
+import { site } from "../data/site";
+import { withBase } from "../utils/url";
+---
+
+<!--
+  首頁競選橫幅：放在主視覺下方，整張圖片完整顯示（不裁切），隨螢幕寬度縮放。
+  換橫幅只需要把新圖片放到 public/images/，再改 site.ts 的 banner.image 檔名。
+-->
+<section id="campaign-banner" class="bg-surface py-10 sm:py-14">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <img
+      src={withBase(site.banner.image)}
+      alt={site.banner.alt}
+      width="1369"
+      height="1149"
+      loading="lazy"
+      decoding="async"
+      class="h-auto w-full rounded-3xl shadow-xl"
+    />
+  </div>
+</section>
