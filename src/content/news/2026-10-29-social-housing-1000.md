@@ -2,7 +2,7 @@
 title: "彰化社宅不能再等！邱建富提四年千戶：熟稔都計、立即上工"
 date: 2026-10-29T12:00:00+08:00
 category: "最新消息"
-summary: "保四旁土地都市計畫變更案辦理公開展覽，規劃變更為社會住宅用地。邱建富提出首年興辦200戶、四年累計千戶的社宅目標，並主張透過市地重劃與校地再生增加社宅用地，做年輕人的靠山。本篇附政策圖卡。"
+summary: "保四旁土地都市計畫變更案辦理公開展覽，規劃變更為社會住宅用地。邱建富提出首年興辦200戶、四年累計千戶的社宅目標，並主張透過市地重劃與校地再生增加社宅用地，做年輕人的靠山。本篇附凱擘大彰化新聞影片及政策圖卡。"
 expanded: true
 ---
 
@@ -10,6 +10,12 @@ expanded: true
   <a href="https://chiuchienfu.tw/images/2026-10-29-social-housing-youth-kaoshan.jpg" target="_blank" rel="noopener noreferrer" aria-label="放大查看「邱建富做青年的靠山」圖卡"><img src="https://chiuchienfu.tw/images/2026-10-29-social-housing-youth-kaoshan.jpg" alt="「邱建富做青年的靠山」3號圖卡：邱建富與年輕家庭站在「彰化保四安居」社宅前，標註 #九年彰化市長 #有經驗會做事。" width="1672" height="941" loading="lazy" style="display:block;width:100%;height:auto;margin:0;border-radius:12px;" /></a>
   <figcaption>圖卡提供：競選團隊；點圖片可放大。</figcaption>
 </figure>
+
+<iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F894954460279559&show_text=false&width=450&height=600" title="邱建富提社宅四年千戶　強調熟稔都計、立即上工｜凱擘大彰化新聞（Facebook 影片）" width="450" height="600" style="display:block;width:100%;max-width:450px;height:auto;aspect-ratio:3/4;border:0;border-radius:12px;background:#181818;" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+
+[前往 Facebook 觀看原始影片 →](https://www.facebook.com/reel/894954460279559)
+
+影片來源：凱擘 大彰化新聞〈邱建富提社宅四年千戶　強調熟稔都計、立即上工〉。
 
 ## 重點整理
 
