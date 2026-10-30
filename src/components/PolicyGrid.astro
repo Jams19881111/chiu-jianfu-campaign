@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { parseHighlight } from "../utils/policy";
 
 const policies = (await getCollection("policies")).sort((a, b) => a.data.order - b.data.order);
 ---
@@ -22,10 +23,10 @@ const policies = (await getCollection("policies")).sort((a, b) => a.data.order -
 
             {policy.data.highlights && (
               <ul class="mt-5 space-y-2 border-t border-primary-100 pt-5">
-                {policy.data.highlights.map((item) => (
+                {policy.data.highlights.map(parseHighlight).map(({ bold, text }) => (
                   <li class="flex gap-2 text-sm text-ink-700">
                     <span class="mt-0.5 text-primary-500">●</span>
-                    <span>{item}</span>
+                    <span class:list={{ "font-extrabold text-ink-900": bold }}>{text}</span>
                   </li>
                 ))}
               </ul>

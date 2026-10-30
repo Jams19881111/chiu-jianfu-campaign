@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import { parseHighlight } from "../utils/policy";
 
 interface Props {
   showHighlights?: boolean; // 首頁上方的 PolicyGrid 已列出條列重點，這裡只放內文；/policies 頁面兩者都顯示
@@ -34,10 +35,10 @@ const details = await Promise.all(
 
             {showHighlights && policy.data.highlights && (
               <ul class="mt-5 space-y-2 border-t border-primary-100 pt-5">
-                {policy.data.highlights.map((item) => (
+                {policy.data.highlights.map(parseHighlight).map(({ bold, text }) => (
                   <li class="flex gap-2 text-base text-ink-700">
                     <span class="mt-0.5 text-primary-500">●</span>
-                    <span>{item}</span>
+                    <span class:list={{ "font-extrabold text-ink-900": bold }}>{text}</span>
                   </li>
                 ))}
               </ul>
