@@ -1,0 +1,44 @@
+---
+import { getCollection, render } from "astro:content";
+
+// 內容來自 src/content/policies/：內文與 highlights 顯示在這裡，首頁上方的 PolicyGrid 只放標題與摘要
+const policies = (await getCollection("policies")).sort((a, b) => a.data.order - b.data.order);
+const details = await Promise.all(
+  policies.map(async (policy) => ({ policy, Content: (await render(policy)).Content })),
+);
+---
+
+<section id="policy-details" class="bg-surface-alt py-20">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-3xl font-extrabold text-ink-900 sm:text-4xl">核心政見詳細內容</h2>
+      <p class="mt-4 text-ink-600">每項政見的具體做法與執行方向</p>
+    </div>
+
+    <div class="mt-14 space-y-8">
+      {
+        details.map(({ policy, Content }) => (
+          <article class="rounded-3xl border border-primary-100 bg-surface p-8 shadow-sm">
+            <h3 class="text-xl font-bold text-ink-900 sm:text-2xl">
+              <span class="mr-2">{policy.data.icon}</span>{policy.data.title}
+            </h3>
+            <div class="prose mt-4 max-w-none text-base leading-relaxed text-ink-700">
+              <Content />
+            </div>
+
+            {policy.data.highlights && (
+              <ul class="mt-5 space-y-2 border-t border-primary-100 pt-5">
+                {policy.data.highlights.map((item) => (
+                  <li class="flex gap-2 text-base text-ink-700">
+                    <span class="mt-0.5 text-primary-500">●</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
