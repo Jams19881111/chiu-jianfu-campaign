@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PolicyDetails from "../components/PolicyDetails.astro";
+import { site } from "../data/site";
+import { withBase } from "../utils/url";
+---
+
+<BaseLayout
+  title="核心政見"
+  description={`${site.candidate.name}核心政見：產業發展、世代福利與青年社會住宅三大政策方向的具體做法與執行方向。`}
+>
+  <section class="mx-auto max-w-5xl px-4 pt-16 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-extrabold text-ink-900 sm:text-4xl">{site.candidate.name}核心政見</h1>
+    <p class="mt-4 text-ink-600">{site.hero.slogan}</p>
+  </section>
+  <div class="mt-10">
+    <PolicyDetails />
+  </div>
+  <section class="mx-auto flex max-w-5xl flex-wrap gap-x-6 gap-y-3 px-4 py-12 text-sm font-bold text-primary-600 sm:px-6 lg:px-8">
+    <a href={withBase("/achievements")} class="hover:underline">施政成果里程碑 →</a>
+    <a href={withBase("/about")} class="hover:underline">個人介紹與經歷 →</a>
+  </section>
+</BaseLayout>

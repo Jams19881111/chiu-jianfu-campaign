@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import About from "../components/About.astro";
+import { site } from "../data/site";
+import { withBase } from "../utils/url";
+---
+
+<BaseLayout
+  title="個人介紹與經歷"
+  description={`${site.candidate.name}個人介紹與經歷：${site.candidate.previousRole}、${site.candidate.role}，了解公共服務歷程與參選理念。`}
+>
+  <section class="mx-auto max-w-5xl px-4 pt-16 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-extrabold text-ink-900 sm:text-4xl">{site.candidate.name}個人介紹與經歷</h1>
+  </section>
+  <div class="mt-10">
+    <About />
+  </div>
+  <section class="mx-auto flex max-w-5xl flex-wrap gap-x-6 gap-y-3 px-4 py-12 text-sm font-bold text-primary-600 sm:px-6 lg:px-8">
+    <a href={withBase("/achievements")} class="hover:underline">施政成果里程碑 →</a>
+    <a href={withBase("/policies")} class="hover:underline">核心政見 →</a>
+  </section>
+</BaseLayout>

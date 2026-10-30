@@ -11,23 +11,23 @@ interface Props {
   description?: string;
 }
 
-const { title, description = `邱建富官方網站。2026彰化縣長候選人、前彰化市長，了解經歷、施政成果、核心政見、最新消息與影音。${site.hero.slogan}。` } = Astro.props;
+const { title, description = "邱建富官方網站，介紹個人經歷、公共服務、彰化地方建設、政見、最新消息及影音，了解邱建富的施政成果與未來規劃。" } = Astro.props;
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
 const pagePath = basePath && Astro.url.pathname.startsWith(`${basePath}/`)
   ? Astro.url.pathname.slice(basePath.length) : Astro.url.pathname;
 const canonicalUrl = new URL(pagePath, "https://chiuchienfu.tw");
 const indexable = Astro.site?.hostname === "chiuchienfu.tw" && !pagePath.startsWith("/regions/");
 const pageTitle = title === "首頁"
-  ? `邱建富官網｜${site.candidate.role}・前彰化市長`
-  : `${title} ｜ 邱建富官網`;
+  ? "邱建富官方網站｜前彰化市長・2026彰化縣長候選人"
+  : `${title} ｜ 邱建富官方網站`;
 const websiteIdentity = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": "https://chiuchienfu.tw/#website",
-  name: "邱建富官網",
-  alternateName: ["邱建富官方網站", "邱建富"],
+  name: "邱建富官方網站",
+  alternateName: "邱建富官網",
   url: "https://chiuchienfu.tw/",
-  inLanguage: "zh-Hant",
+  inLanguage: "zh-TW",
   about: {
     "@type": "Person",
     name: site.candidate.name,
@@ -49,7 +49,7 @@ const websiteIdentity = {
     <link rel="canonical" href={canonicalUrl} />
     <meta property="og:locale" content="zh_TW" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="邱建富官網" />
+    <meta property="og:site_name" content="邱建富官方網站" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
