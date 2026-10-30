@@ -1,0 +1,13 @@
+---
+import { withBase } from "../utils/url";
+---
+
+<!-- 手機版底部固定按鈕：不用滑到底就能看政見、支持；BaseLayout 的 body 留有對應的底部空間 -->
+<nav
+  aria-label="快速行動"
+  class="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-3 border-t border-primary-200 bg-surface/95 px-4 py-2.5 backdrop-blur lg:hidden"
+  style="padding-bottom:max(0.625rem,env(safe-area-inset-bottom));"
+>
+  <a href={withBase("/policies")} class="rounded-full border-2 border-ink-900 py-2 text-center text-sm font-bold text-ink-900">看政見</a>
+  <a href={withBase("/#donate")} class="rounded-full bg-accent-500 py-2 text-center text-sm font-bold text-white">支持我們</a>
+</nav>

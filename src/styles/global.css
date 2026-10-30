@@ -56,6 +56,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* 全站字體基準：Tailwind 的字級都以此等比縮放，要調整大小改這裡即可 */
+  font-size: 112.5%;
 }
 
 body {

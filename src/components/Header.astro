@@ -38,7 +38,7 @@ const navItems = [
     </nav>
 
     <a
-      href="#donate"
+      href={withBase("/#donate")}
       class="hidden rounded-full bg-accent-500 px-5 py-2 text-sm font-bold text-white shadow-sm transition-transform hover:scale-105 hover:bg-accent-600 lg:inline-block"
     >
       支持捐款
@@ -66,7 +66,7 @@ const navItems = [
         </a>
       ))
     }
-    <a href="#donate" class="mt-2 rounded-full bg-accent-500 px-5 py-2 text-center text-sm font-bold text-white">
+    <a href={withBase("/#donate")} class="mt-2 rounded-full bg-accent-500 px-5 py-2 text-center text-sm font-bold text-white">
       支持捐款
     </a>
   </nav>

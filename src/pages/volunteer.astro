@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DonationVolunteer from "../components/DonationVolunteer.astro";
+import { site } from "../data/site";
+---
+
+<BaseLayout
+  title="支持我們與志工報名"
+  description={`支持${site.candidate.name}：政治獻金專戶資訊與志工報名，掃街、文宣、活動支援都需要您的參與。`}
+>
+  <section class="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-extrabold text-ink-900 sm:text-4xl">支持{site.candidate.name}</h1>
+  </section>
+  <DonationVolunteer />
+</BaseLayout>

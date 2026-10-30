@@ -1,7 +1,13 @@
 ---
 import { getCollection } from "astro:content";
 import { site } from "../data/site";
+import { withBase } from "../utils/url";
 
+interface Props {
+  compact?: boolean; // 首頁只放簡介，完整經歷在 /about 頁面
+}
+
+const { compact = false } = Astro.props;
 const timelineEntries = (await getCollection("timeline")).sort((a, b) => a.data.order - b.data.order);
 ---
 
@@ -13,7 +19,12 @@ const timelineEntries = (await getCollection("timeline")).sort((a, b) => a.data.
       {site.about.paragraphs.map((p) => <p>{p}</p>)}
     </div>
 
+    {compact && (
+      <a href={withBase("/about")} class="mt-8 inline-block text-base font-bold text-primary-600 hover:text-primary-700">查看完整經歷 →</a>
+    )}
+
     <!-- 經歷 Timeline -->
+    {!compact && (
     <div class="mt-14">
       <h3 class="mb-8 text-xl font-bold text-ink-900">經歷</h3>
       <ol class="relative space-y-8 border-l-2 border-primary-300 pl-8">
@@ -33,5 +44,6 @@ const timelineEntries = (await getCollection("timeline")).sort((a, b) => a.data.
         }
       </ol>
     </div>
+    )}
   </div>
 </section>

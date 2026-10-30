@@ -5,7 +5,7 @@ export const prerender = true;
 
 export const GET: APIRoute = async () => {
   const news = await getCollection("news");
-  const paths = ["/", "/about/", "/policies/", "/news/", "/media/", "/achievements/",
+  const paths = ["/", "/about/", "/policies/", "/news/", "/media/", "/achievements/", "/volunteer/",
     ...news.map(post => `/news/${post.id}/`)];
   const escapeXml = (value: string) => value.replace(/[<>&"']/g, char =>
     ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;", "'": "&apos;" }[char]!));

@@ -26,21 +26,21 @@ export const site = {
   hero: {
     slogan: "產業升級、青年返鄉、世代共好",
     subtitle: "跳脫藍綠對立，沒有政黨包袱，以縣民的福祉為優先考量",
-    // 候選人主視覺照片，請把實際照片放到 public/images/ 資料夾，再把檔名改到這裡
-    portrait: "/images/candidate-hero.jpg",
     primaryCta: {
-      label: "支持捐款",
-      href: "#donate",
-    },
-    secondaryCta: {
       label: "了解政見",
       href: "#policies",
     },
+    secondaryCta: {
+      label: "支持捐款",
+      href: "#donate",
+    },
   },
 
-  // 首頁主視覺下方的競選橫幅，圖片放在 public/images/
+  // 首頁主視覺的競選橫幅，圖片放在 public/images/，換圖時要一併改寬高
   banner: {
     image: "/images/campaign-banner-3-kaoshan.jpg",
+    width: 1124,
+    height: 944,
     alt: "3號 邱建富 彰化縣長候選人：彰化富，彰化縣長唯一支持。#九年彰化市長 #有經驗會做事 彰化的靠山（3號邱建富）",
   },
 

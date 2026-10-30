@@ -17,6 +17,7 @@ const policies = (await getCollection("policies")).sort((a, b) => a.data.order -
           <article class="flex flex-col rounded-3xl border border-primary-100 bg-surface p-8 shadow-sm transition-shadow hover:shadow-lg">
             <span class="text-4xl">{policy.data.icon}</span>
             <h3 class="mt-4 text-xl font-bold text-ink-900">{policy.data.title}</h3>
+            {policy.data.headline && <p class="mt-3 text-xl font-extrabold text-accent-600">{policy.data.headline}</p>}
             <p class="mt-3 text-sm leading-relaxed text-ink-600">{policy.data.summary}</p>
           </article>
         ))

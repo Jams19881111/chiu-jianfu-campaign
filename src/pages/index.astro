@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
-import CampaignBanner from "../components/CampaignBanner.astro";
 import About from "../components/About.astro";
 import AchievementsTeaser from "../components/AchievementsTeaser.astro";
 import PolicyGrid from "../components/PolicyGrid.astro";
@@ -13,12 +12,11 @@ import DonationVolunteer from "../components/DonationVolunteer.astro";
 
 <BaseLayout title="首頁">
   <Hero />
-  <CampaignBanner />
   <PolicyGrid />
   <AchievementsTeaser />
-  <PolicyDetails />
+  <PolicyDetails collapsed />
   <NewsSection />
   <MediaSection />
-  <About />
-  <DonationVolunteer />
+  <About compact />
+  <DonationVolunteer compact />
 </BaseLayout>

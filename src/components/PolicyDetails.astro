@@ -1,6 +1,12 @@
 ---
 import { getCollection, render } from "astro:content";
 
+interface Props {
+  collapsed?: boolean; // 首頁收合成可點開的清單；/policies 頁面全部展開
+}
+
+const { collapsed = false } = Astro.props;
+
 // 內容來自 src/content/policies/：內文與 highlights 顯示在這裡，首頁上方的 PolicyGrid 只放標題與摘要
 const policies = (await getCollection("policies")).sort((a, b) => a.data.order - b.data.order);
 const details = await Promise.all(
@@ -12,16 +18,19 @@ const details = await Promise.all(
   <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-2xl text-center">
       <h2 class="text-3xl font-extrabold text-ink-900 sm:text-4xl">核心政見詳細內容</h2>
-      <p class="mt-4 text-ink-600">每項政見的具體做法與執行方向</p>
+      <p class="mt-4 text-ink-600">{collapsed ? "點開查看每項政見的具體做法與執行方向" : "每項政見的具體做法與執行方向"}</p>
     </div>
 
-    <div class="mt-14 space-y-8">
+    <div class="mt-14 space-y-6">
       {
         details.map(({ policy, Content }) => (
-          <article class="rounded-3xl border border-primary-100 bg-surface p-8 shadow-sm">
-            <h3 class="text-xl font-bold text-ink-900 sm:text-2xl">
-              <span class="mr-2">{policy.data.icon}</span>{policy.data.title}
-            </h3>
+          <details open={!collapsed} class="group rounded-3xl border border-primary-100 bg-surface p-6 shadow-sm sm:p-8">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
+              <h3 class="text-xl font-bold text-ink-900 sm:text-2xl">
+                <span class="mr-2">{policy.data.icon}</span>{policy.data.title}
+              </h3>
+              <span class="shrink-0 text-primary-600 transition-transform group-open:rotate-180" aria-hidden="true">▼</span>
+            </summary>
             <div class="prose mt-4 max-w-none text-base leading-relaxed text-ink-700">
               <Content />
             </div>
@@ -36,7 +45,7 @@ const details = await Promise.all(
                 ))}
               </ul>
             )}
-          </article>
+          </details>
         ))
       }
     </div>

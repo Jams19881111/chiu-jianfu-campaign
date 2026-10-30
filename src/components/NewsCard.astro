@@ -5,10 +5,12 @@ import { withBase } from "../utils/url";
 
 interface Props {
   post: CollectionEntry<"news">;
+  compact?: boolean; // 首頁用：不展開全文，但內文有影片時仍直接顯示播放器
 }
 
-const { post } = Astro.props;
-const expandedContent = post.data.expanded ? await render(post) : null;
+const { post, compact = false } = Astro.props;
+const showFull = post.data.expanded && !compact;
+const expandedContent = showFull ? await render(post) : null;
 const Content = expandedContent?.Content;
 const sourceUrl = post.data.externalUrl ? new URL(post.data.externalUrl) : undefined;
 const isFacebook = sourceUrl && ["facebook.com", "www.facebook.com"].includes(sourceUrl.hostname);
@@ -19,6 +21,9 @@ const videoId = isFacebook
 const videoEmbed = videoId && /^\d+$/.test(videoId)
   ? `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(`https://www.facebook.com/watch/?v=${videoId}`)}&show_text=false&width=450&height=600`
   : null;
+const bodyVideo = compact ? post.body?.match(/<source src="(\/videos\/[^"]+)"/)?.[1] : undefined;
+const bodyEmbed = compact ? post.body?.match(/<iframe src="(https:\/\/www\.facebook\.com\/plugins\/video\.php[^"]+)"/)?.[1] : undefined;
+const embedSrc = videoEmbed ?? bodyEmbed;
 const formattedDate = post.data.date.toLocaleDateString("zh-TW", {
   year: "numeric",
   month: "long",
@@ -33,7 +38,7 @@ const categoryStyles: Record<string, string> = {
 ---
 
 <article
-  class:list={["flex flex-col rounded-2xl border border-primary-100 bg-surface p-6 transition-shadow hover:shadow-md", { "sm:col-span-2 lg:col-span-3": post.data.expanded }]}
+  class:list={["flex flex-col rounded-2xl border border-primary-100 bg-surface p-6 transition-shadow hover:shadow-md", { "sm:col-span-2 lg:col-span-3": showFull }]}
 >
   <div class="flex items-center gap-3">
     <span class={`rounded-full px-3 py-1 text-xs font-bold ${categoryStyles[post.data.category] ?? "bg-ink-100 text-ink-700"}`}>
@@ -47,10 +52,23 @@ const categoryStyles: Record<string, string> = {
       <Content />
     </div>
   ) : <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-600">{post.data.summary}</p>}
-  {videoEmbed && (
+  {bodyVideo && !embedSrc && (
+    <video
+      controls
+      playsinline
+      preload="metadata"
+      aria-label={`${post.data.title}影片`}
+      class="mt-4"
+      style="display:block;width:100%;aspect-ratio:3/4;object-fit:contain;background:#181818;border-radius:12px;"
+    >
+      <source src={withBase(bodyVideo)} type="video/mp4" />
+      您的瀏覽器不支援影片播放。
+    </video>
+  )}
+  {embedSrc && (
     <div class="mt-4">
       <iframe
-        src={videoEmbed}
+        src={embedSrc}
         title={`${post.data.title}（Facebook 影片）`}
         width="450"
         height="600"
@@ -59,8 +77,8 @@ const categoryStyles: Record<string, string> = {
         allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
         allowfullscreen
       />
-      <a href={post.data.externalUrl} target="_blank" rel="noopener noreferrer" class="mt-3 inline-block text-sm font-bold text-primary-600 underline">前往 Facebook 觀看 →</a>
+      {post.data.externalUrl && <a href={post.data.externalUrl} target="_blank" rel="noopener noreferrer" class="mt-3 inline-block text-sm font-bold text-primary-600 underline">前往 Facebook 觀看 →</a>}
     </div>
   )}
-  {!post.data.expanded && <a href={withBase(`/news/${post.id}`)} class="mt-4 text-sm font-bold text-primary-600 hover:underline">閱讀更多 →</a>}
+  {!showFull && <a href={withBase(`/news/${post.id}`)} class="mt-4 text-sm font-bold text-primary-600 hover:underline">閱讀更多 →</a>}
 </article>

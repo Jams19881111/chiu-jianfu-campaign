@@ -47,6 +47,7 @@ const policies = defineCollection({
     title: z.string(),
     order: z.number(), // 決定卡片排列順序，數字小的排前面
     icon: z.string().default("📋"), // 卡片上顯示的 emoji 圖示，直接換成別的 emoji 即可
+    headline: z.string().optional(), // 首頁卡片上放大顯示的一句具體承諾或數字
     summary: z.string(), // 卡片上顯示的一段摘要
     highlights: z.array(z.string()).optional(), // 條列重點，會顯示成清單
   }),
