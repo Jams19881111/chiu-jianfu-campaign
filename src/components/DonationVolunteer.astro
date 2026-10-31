@@ -1,16 +1,15 @@
 ---
 import { site } from "../data/site";
-import { withBase } from "../utils/url";
 
 interface Props {
-  compact?: boolean; // 首頁只放捐款資訊與志工入口，報名表單在 /volunteer 頁面
+  compact?: boolean; // 首頁只放捐款資訊，志工報名只在 /volunteer 頁面
 }
 
 const { compact = false } = Astro.props;
 ---
 
 <section id="donate" class="py-20">
-  <div class="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+  <div class:list={["mx-auto grid gap-12 px-4 sm:px-6 lg:px-8", compact ? "max-w-3xl" : "max-w-7xl lg:grid-cols-2"]}>
     <!-- 捐款區塊 -->
     <div class="rounded-3xl bg-ink-900 p-8 text-white sm:p-10">
       <h2 class="text-2xl font-extrabold sm:text-3xl">{site.donation.heading}</h2>
@@ -63,18 +62,11 @@ const { compact = false } = Astro.props;
     </div>
 
     <!-- 志工招募表單 -->
+    {!compact && (
     <div class="rounded-3xl border border-primary-200 bg-surface p-8 sm:p-10">
       <h2 class="text-2xl font-extrabold text-ink-900 sm:text-3xl">{site.volunteer.heading}</h2>
       <p class="mt-4 text-sm leading-relaxed text-ink-600">{site.volunteer.description}</p>
 
-      {compact ? (
-        <a
-          href={withBase("/volunteer")}
-          class="mt-8 block rounded-full bg-primary-500 py-3.5 text-center text-base font-bold text-ink-900 transition-colors hover:bg-primary-400"
-        >
-          填寫志工報名表 →
-        </a>
-      ) : (
       <form
         id="volunteer-form"
         class="mt-8 space-y-5"
@@ -160,8 +152,8 @@ const { compact = false } = Astro.props;
           <a href={`tel:${site.contact.phone}`} class="font-bold text-ink-600 underline">{site.contact.phone}</a>。
         </p>
       </form>
-      )}
     </div>
+    )}
   </div>
 </section>
 
