@@ -2,9 +2,15 @@
 title: "彰化不能只有產業，更要有文化競爭力！邱建富提出「文化彰化五力」"
 date: 2026-11-05T19:25:00+08:00
 category: "最新消息"
-summary: "邱建富提出「文化彰化五力」政策，從閱讀力、設計力、品牌力、創造力、傳承力五大面向，規劃彰化總圖、員林綠美圖、田中高鐵特區青年創意基地、創造力發明中心及國寶工藝師薪承計畫。本篇附政策簡報照片。"
+summary: "邱建富提出「文化彰化五力」政策，從閱讀力、設計力、品牌力、創造力、傳承力五大面向，規劃彰化總圖、員林綠美圖、田中高鐵特區青年創意基地、創造力發明中心及國寶工藝師薪承計畫。本篇附凱擘大彰化新聞影片與政策簡報照片。"
 expanded: true
 ---
+
+<div style="max-width:540px;">
+  <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1684529329768538&amp;show_text=false&amp;width=450&amp;height=600" title="凱擘大彰化新聞：邱建富提出文化彰化五力（Facebook 影片）" width="450" height="600" style="display:block;width:100%;height:auto;aspect-ratio:3/4;border:0;border-radius:12px;background:#181818;" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+</div>
+
+影片來源：凱擘大彰化新聞（Facebook）。[前往 Facebook 觀看 →](https://www.facebook.com/reel/1684529329768538)
 
 ## 重點整理
 
