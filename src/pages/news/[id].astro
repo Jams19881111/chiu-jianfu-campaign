@@ -2,6 +2,8 @@
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { withBase } from "../../utils/url";
+import { postShareImage } from "../../utils/share";
+import ShareButtons from "../../components/ShareButtons.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("news");
@@ -19,9 +21,10 @@ const formattedDate = post.data.date.toLocaleDateString("zh-TW", {
   month: "long",
   day: "numeric",
 });
+const shareUrl = `https://chiuchienfu.tw/news/${post.id}/`;
 ---
 
-<BaseLayout title={post.data.title} description={post.data.summary}>
+<BaseLayout title={post.data.title} description={post.data.summary} image={postShareImage(post)} type="article">
   <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
     <a href={withBase("/news")} class="text-sm font-bold text-primary-600 hover:text-primary-700">← 回最新消息列表</a>
 
@@ -33,6 +36,10 @@ const formattedDate = post.data.date.toLocaleDateString("zh-TW", {
     </div>
 
     <h1 class="mt-4 text-3xl font-extrabold text-ink-900 sm:text-4xl">{post.data.title}</h1>
+
+    <div class="mt-5">
+      <ShareButtons url={shareUrl} title={post.data.title} />
+    </div>
 
     {
       post.data.externalUrl && (
@@ -47,6 +54,11 @@ const formattedDate = post.data.date.toLocaleDateString("zh-TW", {
 
     <div class="prose mt-8 max-w-none prose-headings:font-bold prose-a:text-primary-600">
       <Content />
+    </div>
+
+    <div class="mt-12 rounded-2xl border border-primary-100 bg-primary-50 p-5">
+      <p class="mb-3 text-base font-bold text-ink-900">覺得這篇值得一看？轉傳給親朋好友！</p>
+      <ShareButtons url={shareUrl} title={post.data.title} />
     </div>
   </article>
 </BaseLayout>

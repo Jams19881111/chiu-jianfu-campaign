@@ -1,0 +1,48 @@
+---
+/*
+  分享按鈕：LINE、Facebook、複製連結；手機支援系統分享時，多顯示一個「分享」按鈕。
+  url 請傳正式網址（https://chiuchienfu.tw/...），分享出去的連結才不會是備援網址。
+*/
+interface Props {
+  url: string;
+  title: string;
+}
+
+const { url, title } = Astro.props;
+const lineHref = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}`;
+const facebookHref = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+const buttonClass = "inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold transition-opacity hover:opacity-85";
+---
+
+<div class="share-buttons flex flex-wrap items-center gap-2" data-url={url} data-title={title}>
+  <span class="text-sm font-bold text-ink-600">分享給親友：</span>
+  <a href={lineHref} target="_blank" rel="noopener noreferrer" class={`${buttonClass} bg-[#06C755] text-white`}>LINE 分享</a>
+  <a href={facebookHref} target="_blank" rel="noopener noreferrer" class={`${buttonClass} bg-[#1877F2] text-white`}>Facebook 分享</a>
+  <button type="button" data-share-copy class={`${buttonClass} border-2 border-ink-900 text-ink-900`}>複製連結</button>
+  <button type="button" data-share-native hidden class={`${buttonClass} bg-ink-900 text-white`}>分享…</button>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".share-buttons").forEach((box) => {
+    const url = box.dataset.url ?? location.href;
+    const title = box.dataset.title ?? document.title;
+
+    const copyButton = box.querySelector<HTMLButtonElement>("[data-share-copy]");
+    copyButton?.addEventListener("click", async () => {
+      const label = copyButton.textContent;
+      try {
+        await navigator.clipboard.writeText(url);
+        copyButton.textContent = "已複製 ✓";
+      } catch {
+        copyButton.textContent = "請手動複製網址";
+      }
+      setTimeout(() => (copyButton.textContent = label), 2000);
+    });
+
+    const nativeButton = box.querySelector<HTMLButtonElement>("[data-share-native]");
+    if (nativeButton && "share" in navigator) {
+      nativeButton.hidden = false;
+      nativeButton.addEventListener("click", () => navigator.share({ title, url }).catch(() => {}));
+    }
+  });
+</script>

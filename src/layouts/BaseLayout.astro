@@ -10,9 +10,16 @@ import { withBase } from "../utils/url";
 interface Props {
   title: string;
   description?: string;
+  image?: string; // 分享到 Facebook、LINE 時的預覽圖（完整網址），不填就用候選人照片
+  type?: "website" | "article";
 }
 
-const { title, description = "邱建富官方網站，介紹個人經歷、公共服務、彰化地方建設、政見、最新消息及影音，了解邱建富的施政成果與未來規劃。" } = Astro.props;
+const {
+  title,
+  description = "邱建富官方網站，介紹個人經歷、公共服務、彰化地方建設、政見、最新消息及影音，了解邱建富的施政成果與未來規劃。",
+  image = "https://chiuchienfu.tw/images/candidate-hero.jpg",
+  type = "website",
+} = Astro.props;
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
 const pagePath = basePath && Astro.url.pathname.startsWith(`${basePath}/`)
   ? Astro.url.pathname.slice(basePath.length) : Astro.url.pathname;
@@ -49,12 +56,13 @@ const websiteIdentity = {
     <meta name="robots" content={indexable ? "index, follow" : "noindex, follow"} />
     <link rel="canonical" href={canonicalUrl} />
     <meta property="og:locale" content="zh_TW" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
     <meta property="og:site_name" content="邱建富官方網站" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content="https://chiuchienfu.tw/images/candidate-hero.jpg" />
+    <meta property="og:image" content={image} />
+    <meta name="twitter:card" content="summary_large_image" />
     {indexable && pagePath === "/" && (
       <script type="application/ld+json" set:html={JSON.stringify(websiteIdentity).replace(/</g, "\\u003c")} />
     )}
