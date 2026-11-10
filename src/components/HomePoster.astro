@@ -1,0 +1,28 @@
+---
+/*
+  首頁宣傳海報：放在主視覺正下方，進站往下滑第一個看到。
+  圖片與文字設定在 src/data/site.ts 的 homePoster；image 留空就不顯示這個區塊。
+  海報完整顯示不裁切，點圖可開原圖放大。
+*/
+import { site } from "../data/site";
+import { withBase } from "../utils/url";
+
+const poster = site.homePoster;
+---
+
+{poster.image && (
+  <section id="poster" class="bg-primary-50 py-10 sm:py-14">
+    <div class="mx-auto max-w-xl px-4 sm:px-6">
+      <a href={withBase(poster.image)} target="_blank" rel="noopener noreferrer" aria-label="放大查看宣傳海報">
+        <img
+          src={withBase(poster.image)}
+          alt={poster.alt}
+          width={poster.width}
+          height={poster.height}
+          decoding="async"
+          class="h-auto w-full rounded-3xl shadow-xl"
+        />
+      </a>
+    </div>
+  </section>
+)}
