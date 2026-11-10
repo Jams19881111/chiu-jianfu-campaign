@@ -2,7 +2,7 @@
 title: "邱建富後援會接連成立，本週再拓3區，直播接受民眾直球對決"
 date: 2026-11-10T01:03:00+08:00
 category: "最新消息"
-summary: "邱建富週末接連成立二林區、員林區後援會，本週將再成立田中、鹿港、和美三區後援會，並推出每週直播節目「富哥開麥啦！」直接回應民眾提問。本篇附現場照片與本週活動預告。"
+summary: "邱建富週末接連成立二林區、員林區後援會，本週將再成立田中、鹿港、和美三區後援會，並推出每週直播節目「富哥開麥啦！」直接回應民眾提問。本篇附「富哥開麥啦！」直播影片、現場照片與本週活動預告。"
 expanded: true
 ---
 
@@ -48,6 +48,12 @@ expanded: true
 ## 「富哥開麥啦！」每週直播，直球對決
 
 除了傳統地方組織布局，邱建富也將溝通觸角延伸至網路，推出「**富哥開麥啦！你提問我來答，直球對決**」直播節目，並規劃**每週固定開播**，讓民眾不必透過媒體轉述，就能直接向候選人提問。
+
+<div style="max-width:540px;">
+  <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FChenfuChanghua%2Fvideos%2F2833381067093944%2F&amp;show_text=false&amp;width=450&amp;height=600" title="富哥開麥啦！直播（Facebook 影片）" width="450" height="600" style="display:block;width:100%;height:auto;aspect-ratio:3/4;border:0;border-radius:12px;background:#181818;" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+</div>
+
+「富哥開麥啦！」直播影片，來源：彰化邱建富 Facebook 粉絲專頁。[前往 Facebook 觀看 →](https://www.facebook.com/ChenfuChanghua/videos/2833381067093944/)
 
 <figure>
   <a href="https://chiuchienfu.tw/images/2026-11-10-support-groups-livestream.jpg" target="_blank" rel="noopener noreferrer" aria-label="放大查看富哥開麥啦直播畫面"><img src="https://chiuchienfu.tw/images/2026-11-10-support-groups-livestream.jpg" alt="「富哥開麥啦！」直播畫面，左側為10萬噸海淡廠計畫、2030台積電進彰化的政策圖卡，右下為邱建富在直播桌前說明。" width="1400" height="852" loading="lazy" style="display:block;width:100%;height:auto;border-radius:12px;" /></a>
