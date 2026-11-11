@@ -47,7 +47,7 @@ export const site = {
   // 首頁主視覺下方的宣傳海報，圖片放在 public/images/，換圖時要一併改寬高；image 留空就不顯示
   // heading、tagline、points 是海報旁邊的文字重點，換海報時一併改成對應內容
   homePoster: {
-    image: "/images/poster-only-chiu-delivers.jpg",
+    image: "", // 2026/11 撤下；要重新顯示，填回 "/images/poster-only-chiu-delivers.jpg"
     width: 1400,
     height: 1485,
     alt: "宣傳海報：陳素月、魏平政都是空口說白話！只有3號邱建富有經驗（市長任內開源節流、稅收大躍進）、有實績（市長任內每年發放長者6,000元敬老紅包）、有稅收（帶動就業、增加地方稅收）、有產業（推動海水淡化、高科技招商、產業升級），福利才能說到做到！",
