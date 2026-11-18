@@ -1,6 +1,6 @@
 ---
 /*
-  首頁活動預告：放在主視覺正下方。電腦版左海報、右活動資訊；手機版海報在上。
+  首頁活動預告：放在主視覺正下方，精簡橫幅（小張海報縮圖＋重點資訊）。點海報可開大圖。
   設定在 src/data/site.ts 的 eventPromo。網站是建置時產生的靜態頁面，
   所以除了建置時判斷，也在瀏覽器端判斷：過了 hideAfter 那天（台灣時間）就自動隱藏，不必重新發布。
 */
@@ -14,14 +14,14 @@ const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
 ---
 
 {show && (
-  <section id="event" class="bg-ink-900 py-12 text-white sm:py-16" data-hide-after={promo.hideAfter}>
-    <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-14 lg:px-8">
+  <section id="event" class="bg-ink-900 py-5 text-white sm:py-6" data-hide-after={promo.hideAfter}>
+    <div class="mx-auto flex max-w-5xl items-center gap-4 px-4 sm:gap-6 sm:px-6 lg:px-8">
       <a
         href={withBase(promo.image)}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="放大查看活動海報"
-        class="mx-auto block w-full max-w-sm lg:max-w-md"
+        class="block w-24 shrink-0 sm:w-32"
       >
         <img
           src={withBase(promo.image)}
@@ -29,30 +29,25 @@ const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
           width={promo.width}
           height={promo.height}
           decoding="async"
-          class="h-auto w-full rounded-3xl shadow-2xl"
+          class="h-auto w-full rounded-xl shadow-lg"
         />
       </a>
 
-      <div class="mx-auto w-full max-w-md lg:max-w-none">
-        <p class="inline-block rounded-full bg-accent-500 px-4 py-1 text-sm font-bold text-white">活動預告</p>
-        <h2 class="mt-4 text-3xl font-extrabold leading-tight text-primary-400 sm:text-4xl">{promo.heading}</h2>
-
-        <dl class="mt-8 divide-y divide-ink-700 rounded-2xl border-2 border-primary-500 bg-ink-800/60">
-          {promo.details.map((item) => (
-            <div class="flex gap-4 px-5 py-4">
-              <dt class="w-12 shrink-0 text-base font-bold text-primary-400">{item.label}</dt>
-              <dd class="text-lg font-bold leading-snug sm:text-xl">{item.value}</dd>
-            </div>
+      <div class="min-w-0 flex-1">
+        <p class="inline-block rounded-full bg-accent-500 px-3 py-0.5 text-xs font-bold text-white">活動預告</p>
+        <h2 class="mt-2 text-lg font-extrabold leading-snug text-primary-400 sm:text-2xl">{promo.heading}</h2>
+        <ul class="mt-2 space-y-0.5 text-sm leading-relaxed text-ink-100 sm:text-base">
+          {promo.details.map((item, index) => (
+            <li class:list={{ "hidden sm:list-item": index >= 3 }}><span class="font-bold text-primary-400">{item.label}</span>　{item.value}</li>
           ))}
-        </dl>
-
+        </ul>
         <a
           href={mapHref}
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-8 inline-block rounded-full bg-primary-500 px-8 py-3.5 text-base font-bold text-ink-900 transition-transform hover:scale-105 hover:bg-primary-400"
+          class="mt-3 inline-block rounded-full bg-primary-500 px-4 py-1.5 text-sm font-bold text-ink-900 hover:bg-primary-400"
         >
-          📍 開啟地圖導航
+          📍 地圖導航
         </a>
       </div>
     </div>
