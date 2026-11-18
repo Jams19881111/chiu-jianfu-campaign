@@ -44,6 +44,15 @@ export const site = {
     alt: "3號 邱建富 彰化縣長候選人：彰化富，彰化縣長唯一支持。#九年彰化市長 #有經驗會做事 彰化的靠山（3號邱建富）",
   },
 
+  // 首頁置頂影片：放在主視覺正下方、活動預告之前，進站第一眼就看到。video 留空就不顯示。
+  featuredVideo: {
+    video: "/videos/2026-11-18-policy-presentation-highlights.mp4",
+    poster: "/images/2026-11-18-policy-presentation-highlights-poster.jpg",
+    label: "置頂影片",
+    title: "2026彰化縣長選舉政見發表會：邱建富向您報告",
+    text: "選賢與能，民意為主。邱建富在公辦政見發表會向縣民報告施政理念、財政規劃與治水成果，2分46秒看重點。",
+  },
+
   // 首頁「活動預告」：放在主視覺正下方。過了 hideAfter 那天（台灣時間）就不再顯示；image 留空也不顯示。
   // 換下一場活動時，換圖片、寬高與 details 文字即可。
   eventPromo: {
