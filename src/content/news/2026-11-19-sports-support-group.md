@@ -2,7 +2,7 @@
 title: "體育人挺體育人！邱建富成立體育後援會　提四大政策打造全民運動大縣"
 date: 2026-11-19T16:00:00+08:00
 category: "最新消息"
-summary: "邱建富成立體育後援會，提出四大體育政策：基層設施與人才培育、職業運動與高鐵站區體育園區、運動觀光、全民運動，盼打造彰化成為全民運動大縣。本篇附記者會照片與政策圖卡。"
+summary: "邱建富成立體育後援會，提出四大體育政策：基層設施與人才培育、職業運動與高鐵站區體育園區、運動觀光、全民運動，盼打造彰化成為全民運動大縣。本篇附凱擘大彰化新聞報導影片、記者會照片與政策圖卡。"
 expanded: true
 ---
 
@@ -10,6 +10,12 @@ expanded: true
   <a href="https://chiuchienfu.tw/images/2026-11-19-sports-group.jpg" target="_blank" rel="noopener noreferrer" aria-label="放大查看體育後援會成立合照"><img src="https://chiuchienfu.tw/images/2026-11-19-sports-group.jpg" alt="邱建富與體育界支持者在競選總部合照，比出3號手勢，旁邊螢幕寫著「體育人挺體育人！」。" width="1400" height="956" loading="lazy" style="display:block;width:100%;height:auto;border-radius:12px;" /></a>
   <figcaption>「體育人挺體育人！體育富，彰化前行跨大步」記者會，體育後援會成立。點照片可放大。</figcaption>
 </figure>
+
+## 新聞影片
+
+<iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1856064979052392&show_text=false&width=450&height=600" title="凱擘大彰化新聞：邱建富成立體育後援會（Facebook 影片）" width="450" height="600" style="display:block;width:100%;max-width:450px;height:auto;aspect-ratio:3/4;border:0;border-radius:12px;background:#181818;" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+
+影片來源：凱擘 大彰化新聞。[前往 Facebook 觀看 →](https://www.facebook.com/reel/1856064979052392)
 
 ## 重點整理
 
