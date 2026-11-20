@@ -2,35 +2,59 @@
 /*
   首頁置頂影片：放在主視覺正下方，進站第一眼就看到。
   設定在 src/data/site.ts 的 featuredVideo；video 留空就不顯示。
-  直式影片固定 3:4 顯示框，不自動播放、不自動開聲音。
+  橫式影片（landscape）標題在上、16:9 影片放大置中；直式影片（portrait）3:4 影片在左、文字在右。
+  不自動播放、不自動開聲音。
 */
 import { site } from "../data/site";
 import { withBase } from "../utils/url";
 
 const featured = site.featuredVideo;
+const landscape = featured.orientation === "landscape";
 ---
 
 {featured.video && (
   <section id="featured" class="pt-6 pb-2 sm:pt-8">
-    <div class="mx-auto grid max-w-5xl items-center gap-6 px-4 sm:px-6 md:grid-cols-[minmax(0,20rem)_1fr] md:gap-10 lg:px-8">
-      <video
-        controls
-        playsinline
-        preload="metadata"
-        poster={featured.poster ? withBase(featured.poster) : undefined}
-        aria-label={featured.title}
-        class="mx-auto w-full max-w-xs rounded-2xl shadow-xl md:max-w-none"
-        style="display:block;aspect-ratio:3/4;object-fit:contain;background:#181818;"
-      >
-        <source src={withBase(featured.video)} type="video/mp4" />
-        您的瀏覽器不支援影片播放。
-      </video>
-
-      <div class="text-center md:text-left">
-        <p class="inline-block rounded-full bg-accent-500 px-3 py-0.5 text-sm font-bold text-white">{featured.label}</p>
-        <h2 class="mt-3 text-2xl font-extrabold leading-snug text-ink-900 sm:text-3xl">{featured.title}</h2>
-        <p class="mt-3 text-lg leading-relaxed text-ink-700">{featured.text}</p>
+    {landscape ? (
+      <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <p class="inline-block rounded-full bg-accent-500 px-3 py-0.5 text-sm font-bold text-white">{featured.label}</p>
+          <h2 class="mt-3 text-2xl font-extrabold leading-snug text-ink-900 sm:text-3xl">{featured.title}</h2>
+        </div>
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          poster={featured.poster ? withBase(featured.poster) : undefined}
+          aria-label={featured.title}
+          class="mt-5 w-full rounded-2xl shadow-xl"
+          style="display:block;aspect-ratio:16/9;object-fit:contain;background:#181818;"
+        >
+          <source src={withBase(featured.video)} type="video/mp4" />
+          您的瀏覽器不支援影片播放。
+        </video>
+        <p class="mt-4 text-center text-lg leading-relaxed text-ink-700">{featured.text}</p>
       </div>
-    </div>
+    ) : (
+      <div class="mx-auto grid max-w-5xl items-center gap-6 px-4 sm:px-6 md:grid-cols-[minmax(0,20rem)_1fr] md:gap-10 lg:px-8">
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          poster={featured.poster ? withBase(featured.poster) : undefined}
+          aria-label={featured.title}
+          class="mx-auto w-full max-w-xs rounded-2xl shadow-xl md:max-w-none"
+          style="display:block;aspect-ratio:3/4;object-fit:contain;background:#181818;"
+        >
+          <source src={withBase(featured.video)} type="video/mp4" />
+          您的瀏覽器不支援影片播放。
+        </video>
+
+        <div class="text-center md:text-left">
+          <p class="inline-block rounded-full bg-accent-500 px-3 py-0.5 text-sm font-bold text-white">{featured.label}</p>
+          <h2 class="mt-3 text-2xl font-extrabold leading-snug text-ink-900 sm:text-3xl">{featured.title}</h2>
+          <p class="mt-3 text-lg leading-relaxed text-ink-700">{featured.text}</p>
+        </div>
+      </div>
+    )}
   </section>
 )}
