@@ -47,12 +47,12 @@ export const site = {
   // 首頁置頂影片：放在主視覺正下方、活動預告之前，進站第一眼就看到。video 留空就不顯示。
   featuredVideo: {
     // orientation："landscape"（橫式 16:9，影片放大置中）或 "portrait"（直式 3:4，影片在左、文字在右）
-    video: "/videos/2026-11-20-policy-presentation-full.mp4",
-    poster: "/images/2026-11-20-policy-presentation-full-poster.jpg",
+    video: "/videos/2026-11-22-love-for-changhua.mp4",
+    poster: "/images/2026-11-22-love-for-changhua-poster.jpg",
     orientation: "landscape",
     label: "置頂影片",
-    title: "公辦電視政見發表會完整政見（字幕版）：邱建富向彰化鄉親報告",
-    text: "產業轉型、鐵路高架化、台積電用水、都市計畫與社會住宅、五吉幸福政策，以及農業、觀光與文化力，完整政見約10分鐘，附中文字幕。",
+    title: "邱建富：一心一意為彰化",
+    text: "世代居住在彰化，從小跟著爸爸走遍彰化，對這片土地有很深的感情。彰化人需要有經驗、有能力、願意奉獻付出的縣長。",
   },
 
   // 首頁「活動預告」：放在主視覺正下方。過了 hideAfter 那天（台灣時間）就不再顯示；image 留空也不顯示。
