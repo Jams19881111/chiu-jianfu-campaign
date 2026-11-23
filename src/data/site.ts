@@ -47,11 +47,11 @@ export const site = {
   // 首頁置頂影片：放在主視覺正下方、活動預告之前，進站第一眼就看到。video 留空就不顯示。
   featuredVideo: {
     // orientation："landscape"（橫式 16:9，影片放大置中）或 "portrait"（直式 3:4，影片在左、文字在右）
-    video: "/videos/2026-11-22-love-for-changhua.mp4",
-    poster: "/images/2026-11-22-love-for-changhua-poster.jpg",
+    video: "/videos/2026-11-23-love-for-changhua.mp4",
+    poster: "/images/2026-11-23-love-for-changhua-poster.jpg",
     orientation: "landscape",
     label: "置頂影片",
-    title: "邱建富：一心一意為彰化",
+    title: "走遍彰化，心繫彰化",
     text: "世代居住在彰化，從小跟著爸爸走遍彰化，對這片土地有很深的感情。彰化人需要有經驗、有能力、願意奉獻付出的縣長。",
   },
 
