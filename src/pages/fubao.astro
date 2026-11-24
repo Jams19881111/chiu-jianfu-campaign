@@ -1,0 +1,71 @@
+---
+/*
+  2026富報線上閱讀頁：四個版面依閱讀順序排列，點版面可開大圖放大看，另提供 PDF 下載。
+  圖片與 PDF 放在 public/fubao/。換新一期時，換掉該資料夾的檔案並更新下方 pages 說明。
+*/
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ShareButtons from "../components/ShareButtons.astro";
+import { withBase } from "../utils/url";
+
+const pages = [
+  { n: 1, label: "第一版", title: "邱建富：蓋海淡廠台積電到彰化｜四年蓋千戶社宅" },
+  { n: 2, label: "第二版", title: "文化競爭力｜世代有富｜把時間還給老師" },
+  { n: 3, label: "第三版", title: "台灣燈會、國慶焰火帶回彰化｜全民運動大縣" },
+  { n: 4, label: "第四版", title: "都市計畫｜鐵路高架化｜政見會精華" },
+];
+---
+
+<BaseLayout
+  title="2026富報"
+  description="邱建富競選報「2026富報」線上閱讀：蓋海淡廠台積電到彰化、四年蓋千戶社宅、文化彰化、世代有富、全民運動大縣、鐵路高架化等政見一次看。"
+  image="https://chiuchienfu.tw/images/og/2026-fubao.jpg"
+  type="article"
+>
+  <section class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+    <p class="inline-block rounded-full bg-accent-500 px-3 py-0.5 text-sm font-bold text-white">線上閱讀</p>
+    <h1 class="mt-3 text-3xl font-extrabold text-ink-900 sm:text-4xl">2026富報</h1>
+    <p class="mt-3 text-lg leading-relaxed text-ink-700">
+      邱建富的政見與施政成果，整理成一份報紙。共四版，<strong>點版面可以放大看</strong>。
+    </p>
+
+    <div class="mt-5 flex flex-wrap items-center gap-3">
+      <a href={withBase("/fubao/2026-fubao.pdf")} download class="rounded-full bg-ink-900 px-5 py-2.5 text-sm font-bold text-white hover:bg-ink-700">⬇ 下載 PDF</a>
+      <ShareButtons url="https://chiuchienfu.tw/fubao/" title="2026富報｜邱建富競選報" />
+    </div>
+
+    <nav aria-label="版面目錄" class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      {pages.map((p) => (
+        <a href={`#page-${p.n}`} class="rounded-xl border border-primary-200 bg-surface p-3 text-center text-sm font-bold text-ink-800 hover:border-primary-400">
+          {p.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="mt-10 space-y-12">
+      {pages.map((p) => (
+        <figure id={`page-${p.n}`} class="scroll-mt-24">
+          <figcaption class="mb-3">
+            <span class="text-sm font-bold text-accent-600">{p.label}</span>
+            <span class="ml-2 text-base font-bold text-ink-900">{p.title}</span>
+          </figcaption>
+          <a href={withBase(`/fubao/page-${p.n}.jpg`)} target="_blank" rel="noopener noreferrer" aria-label={`放大查看2026富報${p.label}`}>
+            <img
+              src={withBase(`/fubao/page-${p.n}.jpg`)}
+              alt={`2026富報${p.label}：${p.title}`}
+              width="1800"
+              height="2546"
+              loading={p.n === 1 ? "eager" : "lazy"}
+              decoding="async"
+              class="h-auto w-full rounded-xl border border-ink-100 shadow-lg"
+            />
+          </a>
+        </figure>
+      ))}
+    </div>
+
+    <div class="mt-12 rounded-2xl border border-primary-100 bg-primary-50 p-5">
+      <p class="mb-3 text-base font-bold text-ink-900">轉傳給親朋好友，一起認識邱建富的政見！</p>
+      <ShareButtons url="https://chiuchienfu.tw/fubao/" title="2026富報｜邱建富競選報" />
+    </div>
+  </section>
+</BaseLayout>

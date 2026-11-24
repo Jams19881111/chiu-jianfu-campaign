@@ -1,0 +1,34 @@
+---
+/*
+  首頁「2026富報」入口：封面縮圖＋大按鈕，點進 /fubao 線上閱讀。
+  要下架時，從 src/pages/index.astro 拿掉 <FubaoPromo /> 即可。
+*/
+import { withBase } from "../utils/url";
+---
+
+<section id="fubao" class="py-6 sm:py-8">
+  <a
+    href={withBase("/fubao")}
+    class="group mx-auto flex max-w-5xl items-center gap-5 rounded-3xl border-2 border-accent-500 bg-gradient-to-r from-primary-100 to-primary-50 p-4 shadow-md transition-shadow hover:shadow-xl sm:gap-8 sm:p-6"
+    style="margin-inline:max(1rem, calc((100% - 64rem) / 2));"
+  >
+    <img
+      src={withBase("/fubao/cover.jpg")}
+      alt="2026富報第一版封面：邱建富：蓋海淡廠台積電到彰化"
+      width="800"
+      height="1132"
+      decoding="async"
+      class="w-28 shrink-0 rounded-lg shadow-lg transition-transform group-hover:-rotate-2 sm:w-40"
+    />
+    <div class="min-w-0">
+      <p class="inline-block rounded-full bg-accent-500 px-3 py-0.5 text-xs font-bold text-white sm:text-sm">最新出刊</p>
+      <h2 class="mt-2 text-2xl font-extrabold text-ink-900 sm:text-4xl">2026富報</h2>
+      <p class="mt-2 text-base font-bold leading-snug text-ink-800 sm:text-xl">
+        蓋海淡廠、台積電到彰化，四年蓋千戶社宅……邱建富政見一份報紙看完！
+      </p>
+      <span class="mt-4 inline-block rounded-full bg-accent-500 px-5 py-2 text-base font-bold text-white group-hover:bg-accent-600 sm:px-7 sm:py-3 sm:text-lg">
+        📰 線上翻閱 →
+      </span>
+    </div>
+  </a>
+</section>
