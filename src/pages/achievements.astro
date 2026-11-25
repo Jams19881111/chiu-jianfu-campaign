@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { site } from "../data/site";
-import { withBase } from "../utils/url";
 
 const milestones = (await getCollection("achievements")).sort((a, b) => a.data.order - b.data.order);
 
@@ -25,15 +24,6 @@ const categoryStyles: Record<string, string> = {
       <p class="mt-6 text-lg leading-relaxed text-primary-100">
         從就任第一天到卸任交接，這裡整理了{site.candidate.name}擔任彰化市長期間具代表性的施政成果。每一筆都附上可查證的公開報導來源，沒有把握的內容不刻意填滿。
       </p>
-    </div>
-  </section>
-
-  <section class="pt-14">
-    <div class="mx-auto max-w-md px-4">
-      <a href={withBase("/images/chiu-executive-experience.jpg")} target="_blank" rel="noopener noreferrer" class="block" aria-label="放大查看政績圖卡">
-        <img src={withBase("/images/chiu-executive-experience.jpg")} alt="政績圖卡：做過首長，才知道怎麼做縣長。縣長、市長都要帶領公務團隊、編列並執行預算，立委不用。邱建富當過兩任彰化市長（2010–2018）、兩屆彰化縣議員。市長任內：20年以上懸案40項解決37項、2017年施政滿意度89.1%、彰化鐵路高架化387億定案、台中捷運延伸彰化139億定案。" width="1080" height="1350" loading="lazy" decoding="async" class="h-auto w-full rounded-2xl shadow-xl" />
-      </a>
-      <p class="mt-3 text-center text-sm text-ink-500">一張圖看懂：點圖可放大、存下來轉傳給親友</p>
     </div>
   </section>
 
