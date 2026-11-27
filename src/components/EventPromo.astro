@@ -1,65 +1,93 @@
 ---
 /*
-  首頁活動預告：放在主視覺正下方，精簡橫幅（小張海報縮圖＋重點資訊）。點海報可開大圖。
-  設定在 src/data/site.ts 的 eventPromo。網站是建置時產生的靜態頁面，
-  所以除了建置時判斷，也在瀏覽器端判斷：過了 hideAfter 那天（台灣時間）就自動隱藏，不必重新發布。
+  首頁活動預告：放在主視覺正下方，精簡橫幅（海報縮圖＋重點資訊）。點海報可開大圖。
+  設定在 src/data/site.ts 的 eventPromos，可以放好幾則，依清單順序由上往下排（第一則最上面）。
+  網站是建置時產生的靜態頁面，所以除了建置時判斷，也在瀏覽器端判斷：
+  每則過了自己的 hideAfter 那天（台灣時間）就自動隱藏，不必重新發布。
+  每則可設 mapQuery（顯示「地圖導航」按鈕）或 link（自訂按鈕，例如直播連結）。
 */
 import { site } from "../data/site";
 import { withBase } from "../utils/url";
 
-const promo = site.eventPromo;
+type Promo = {
+  image: string;
+  width: number;
+  height: number;
+  alt: string;
+  heading: string;
+  details: { label: string; value: string }[];
+  hideAfter: string;
+  mapQuery?: string;
+  link?: { label: string; href: string };
+};
+
 const todayTaipei = new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
-const show = Boolean(promo.image) && todayTaipei <= promo.hideAfter;
-const landscape = promo.width > promo.height;
-const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(promo.mapQuery)}`;
+const promos = (site.eventPromos as Promo[]).filter((p) => Boolean(p.image) && todayTaipei <= p.hideAfter);
 ---
 
-{show && (
-  <section id="event" class="py-5 sm:py-6" data-hide-after={promo.hideAfter}>
-    <div class:list={["mx-auto flex max-w-5xl gap-4 rounded-3xl border-2 border-primary-300 bg-gradient-to-r from-primary-100 to-primary-50 px-4 py-4 shadow-sm sm:gap-6 sm:px-6 sm:py-5 lg:mx-auto", landscape ? "flex-col sm:flex-row sm:items-center" : "items-center"]} style="margin-inline:max(1rem, calc((100% - 64rem) / 2));">
-      <a
-        href={withBase(promo.image)}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="放大查看活動海報"
-        class:list={["block shrink-0", landscape ? "w-full sm:w-80" : "w-24 sm:w-32"]}
-      >
-        <img
-          src={withBase(promo.image)}
-          alt={promo.alt}
-          width={promo.width}
-          height={promo.height}
-          decoding="async"
-          class="h-auto w-full rounded-xl shadow-lg"
-        />
-      </a>
-
-      <div class="min-w-0 flex-1">
-        <p class="inline-block rounded-full bg-accent-500 px-3 py-0.5 text-xs font-bold text-white">活動預告</p>
-        <h2 class="mt-2 text-lg font-extrabold leading-snug text-ink-900 sm:text-2xl">{promo.heading}</h2>
-        <ul class="mt-2 space-y-0.5 text-sm font-medium leading-relaxed text-ink-800 sm:text-base">
-          {promo.details.map((item, index) => (
-            <li class:list={{ "hidden sm:list-item": !landscape && index >= 3 }}><span class="font-bold text-accent-600">{item.label}</span>　{item.value}</li>
-          ))}
-        </ul>
-        <a
-          href={mapHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mt-3 inline-block rounded-full bg-ink-900 px-4 py-1.5 text-sm font-bold text-white hover:bg-ink-700"
+{promos.length > 0 && (
+  <section id="event" class="space-y-4 py-5 sm:py-6">
+    {promos.map((promo) => {
+      // 橫式或正方形海報：手機上整張放大在上方；直式海報：小縮圖放左邊
+      const wide = promo.width >= promo.height;
+      const button = promo.link
+        ? promo.link
+        : promo.mapQuery
+          ? { label: "📍 地圖導航", href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(promo.mapQuery)}` }
+          : null;
+      return (
+        <div
+          data-hide-after={promo.hideAfter}
+          class:list={["mx-auto flex max-w-5xl gap-4 rounded-3xl border-2 border-primary-300 bg-gradient-to-r from-primary-100 to-primary-50 px-4 py-4 shadow-sm sm:gap-6 sm:px-6 sm:py-5 lg:mx-auto", wide ? "flex-col sm:flex-row sm:items-center" : "items-center"]}
+          style="margin-inline:max(1rem, calc((100% - 64rem) / 2));"
         >
-          📍 地圖導航
-        </a>
-      </div>
-    </div>
+          <a
+            href={withBase(promo.image)}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="放大查看活動海報"
+            class:list={["block shrink-0", wide ? "w-full sm:w-80" : "w-24 sm:w-32"]}
+          >
+            <img
+              src={withBase(promo.image)}
+              alt={promo.alt}
+              width={promo.width}
+              height={promo.height}
+              decoding="async"
+              class="h-auto w-full rounded-xl shadow-lg"
+            />
+          </a>
+
+          <div class="min-w-0 flex-1">
+            <p class="inline-block rounded-full bg-accent-500 px-3 py-0.5 text-xs font-bold text-white">活動預告</p>
+            <h2 class="mt-2 text-lg font-extrabold leading-snug text-ink-900 sm:text-2xl">{promo.heading}</h2>
+            <ul class="mt-2 space-y-0.5 text-sm font-medium leading-relaxed text-ink-800 sm:text-base">
+              {promo.details.map((item, index) => (
+                <li class:list={{ "hidden sm:list-item": !wide && index >= 3 }}><span class="font-bold text-accent-600">{item.label}</span>　{item.value}</li>
+              ))}
+            </ul>
+            {button && (
+              <a
+                href={button.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-3 inline-block rounded-full bg-ink-900 px-4 py-1.5 text-sm font-bold text-white hover:bg-ink-700"
+              >
+                {button.label}
+              </a>
+            )}
+          </div>
+        </div>
+      );
+    })}
   </section>
 )}
 
 <script>
-  const event = document.getElementById("event");
-  const hideAfter = event?.dataset.hideAfter;
-  if (event && hideAfter) {
-    const todayTaipei = new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
-    if (todayTaipei > hideAfter) event.remove();
-  }
+  const todayTaipei = new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
+  document.querySelectorAll<HTMLElement>("#event [data-hide-after]").forEach((card) => {
+    if (todayTaipei > (card.dataset.hideAfter ?? "")) card.remove();
+  });
+  const section = document.getElementById("event");
+  if (section && !section.querySelector("[data-hide-after]")) section.remove();
 </script>
