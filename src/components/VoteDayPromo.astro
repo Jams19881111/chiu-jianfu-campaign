@@ -1,0 +1,32 @@
+---
+/*
+  投票日圖卡：放在首頁最上方（主視覺之前），進站第一眼就看到。
+  過了 hideAfter 那天（台灣時間）就自動隱藏，不必重新發布。要提早拿掉，從 src/pages/index.astro 移除 <VoteDayPromo /> 即可。
+*/
+import { withBase } from "../utils/url";
+
+const promo = {
+  image: "/images/2026-11-28-vote-day.jpg",
+  alt: "11/28（星期六）彰化縣長候選人3號邱建富，懇請賜票，唯一支持3號邱建富。選票位置示意圖：第3格邱建富。",
+  hideAfter: "2026-11-28",
+};
+const todayTaipei = new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
+const show = todayTaipei <= promo.hideAfter;
+---
+
+{show && (
+  <section id="vote-day" data-hide-after={promo.hideAfter} class="bg-gradient-to-b from-primary-400 to-primary-100 px-4 py-5 sm:py-8">
+    <a href={withBase(promo.image)} target="_blank" rel="noopener noreferrer" aria-label="放大查看投票日圖卡" class="mx-auto block max-w-xl">
+      <img src={withBase(promo.image)} alt={promo.alt} width="1200" height="1195" fetchpriority="high" decoding="async" class="h-auto w-full rounded-2xl shadow-2xl" />
+    </a>
+  </section>
+)}
+
+<script>
+  const el = document.getElementById("vote-day");
+  const hideAfter = el?.dataset.hideAfter;
+  if (el && hideAfter) {
+    const todayTaipei = new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
+    if (todayTaipei > hideAfter) el.remove();
+  }
+</script>
